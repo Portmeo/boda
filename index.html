@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javier & Maria Angeles - Nuestra Boda</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">J&M</div>
+            <ul class="nav-menu">
+                <li><a href="#inicio">Inicio</a></li>
+                <li><a href="#detalles">Detalles</a></li>
+                <li><a href="#ubicacion">Ubicación</a></li>
+                <li><a href="#confirmar">RSVP</a></li>
+            </ul>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Pantalla completa de invitación -->
+    <div class="invitation-fullscreen" id="invitation-fullscreen">
+        <div class="fullscreen-content">
+            <div class="names-section">
+                <h1 class="couple-names-hero">Javier <span>&</span> Maria Angeles</h1>
+                <div class="decorative-line"></div>
+            </div>
+            
+            <div class="mystery-section">
+                <p class="simple-message">Queremos decirte algo...</p>
+                
+                <button class="minimal-btn" id="play-video-btn">
+                    Descúbrelo
+                </button>
+            </div>
+            
+            <div class="scroll-hint-bottom">
+                <span>Saltar introducción</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video de YouTube oculto inicialmente -->
+    <div class="video-hero hidden" id="video-hero">
+        <iframe id="invitation-video" 
+                src="" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+        </iframe>
+        <!-- Capa transparente para detectar scroll -->
+        <div class="video-scroll-overlay" id="video-scroll-overlay"></div>
+    </div>
+
+    <!-- Imagen estática cuando termina el video o se salta -->
+    <div class="static-image-hero hidden" id="static-image-hero">
+        <img src="imagen.png" alt="Invitación" id="static-invitation-image">
+        <div class="scroll-hint-over-image">
+            <span>Desliza para conocer más</span>
+            <div class="scroll-arrow">↓</div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <section id="inicio" class="intro-section">
+            <div class="container">
+                <div class="intro-content">
+                    <div class="welcome-message">
+                        <h1 class="main-heading">Javier & Maria Angeles</h1>
+                        <div class="wedding-date-elegant">
+                            <span class="date-number">25</span>
+                            <div class="date-details">
+                                <span class="month">Octubre</span>
+                                <span class="year">2025</span>
+                            </div>
+                        </div>
+                        <p class="welcome-text">
+                            Te invitamos a la celebración de nuestra boda el próximo sábado 25 de Octubre del 2025.
+                            Acompáñanos en este enlace lleno de amor, alegría y momentos inolvidables.
+                        </p>                        
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="detalles" class="details-section">
+            <div class="container">
+                <div class="details-content">
+                    <div class="details-message">
+                        <h2 class="main-heading">Detalles del Evento</h2>
+                        
+                        <div class="event-info">
+                            <h3 class="event-title">💒 Ceremonia</h3>
+                            <p class="event-detail">Iglesia de Cristo Rey de Córdoba</p>
+                            <p class="event-time">12:30 hrs</p>
+                        </div>
+                        
+                        <div class="event-info">
+                            <h3 class="event-title">🥂 Celebración</h3>
+                            <p class="event-detail">Sede de Injupisa</p>
+                            <p class="event-detail">Avd. del Brillante, 52, Córdoba</p>
+                            <p class="event-time">Después de la ceremonia</p>
+                        </div>                        
+                        
+                        <div class="event-info gift-info">
+                            <h3 class="event-title">💝 Detalles</h3>
+                            <p class="gift-text">Lo importante es veros en nuestro día especial, pero si deseas tener un detalle puedes hacerlo en la cuenta:</p>
+                            <div class="account-container">
+                                <p class="account-number">ES16 0237 0185 3091 7415 4973</p>
+                                <button class="copy-account-btn" onclick="copyAccountNumber()">Copiar cuenta</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="ubicacion" class="location-section">
+            <div class="container">
+                <h2 class="section-title">Ubicación</h2>
+                <div class="location-content">
+                    <div class="location-details">
+                        <div class="location-item">
+                            <h3>Ceremonia Religiosa</h3>
+                            <p>Iglesia de Cristo Rey de Córdoba</p>
+                            <p>Córdoba</p>
+                            <p>12:30 hrs</p>
+                            <button class="location-btn">Ver en Maps</button>
+                        </div>
+                        <div class="location-item">
+                            <h3>Celebración</h3>
+                            <p>Sede de Injupisa</p>
+                            <p>Avd. del Brillante, 93, Córdoba</p>
+                            <p>Después de la ceremonia</p>
+                            <button class="location-btn">Ver en Maps</button>
+                        </div>
+                    </div>
+                    <div class="location-map">
+                        <div class="map-placeholder">
+                            <p>Mapa interactivo</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="confirmar" class="rsvp-section">
+            <div class="container">
+                <h2 class="section-title">Confirma tu Asistencia</h2>
+                <div class="rsvp-content">
+                    <div class="rsvp-text">
+                        <p>Tu presencia es el mejor regalo que podemos recibir. Por favor, confirma tu asistencia antes del 15 de octubre.</p>
+                    </div>
+                    <form class="rsvp-form">
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="name">Nombre completo</label>
+                                <input type="text" id="name" name="name" required>
+                            </div>
+                            <div class="form-field">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-field">
+                                <label for="attendance">Asistencia</label>
+                                <select id="attendance" name="attendance" required>
+                                    <option value="">Selecciona</option>
+                                    <option value="both">Ceremonia y Recepción</option>
+                                    <option value="ceremony">Solo Ceremonia</option>
+                                    <option value="reception">Solo Recepción</option>
+                                    <option value="none">No podré asistir</option>
+                                </select>
+                            </div>
+                            <div class="form-field">
+                                <label for="guests">Acompañantes</label>
+                                <select id="guests" name="guests">
+                                    <option value="0">Solo yo</option>
+                                    <option value="1">1 persona</option>
+                                    <option value="2">2 personas</option>
+                                    <option value="3">3 personas</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-field full-width">
+                            <label for="message">Mensaje (opcional)</label>
+                            <textarea id="message" name="message" rows="3" placeholder="Comparte tus buenos deseos..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Confirmar Asistencia</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Javier & Maria Angeles &mdash; 25 de Octubre, 2025</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
