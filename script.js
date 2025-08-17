@@ -218,6 +218,27 @@ document.addEventListener('DOMContentLoaded', function() {
     
     
     
+    // Logo click to scroll to top
+    const logoLink = document.getElementById('logo-link');
+    if (logoLink) {
+        logoLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            // Cerrar menú móvil si está abierto
+            const navMenu = document.querySelector('.nav-menu');
+            const navToggle = document.querySelector('.nav-toggle');
+            if (navMenu && navToggle) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
+            
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+    
     // Mobile menu toggle
     const navToggle = document.querySelector('.nav-toggle');
     const navMenu = document.querySelector('.nav-menu');
