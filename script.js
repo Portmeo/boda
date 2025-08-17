@@ -2,7 +2,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Elements
     const navbar = document.getElementById('navbar');
     const videoSection = document.getElementById('video-section');
-    const video = document.getElementById('invitation-video');
     const invitationFullscreen = document.getElementById('invitation-fullscreen');
     const backgroundImage = document.getElementById('background-image');
     const playVideoBtn = document.getElementById('play-video-btn');
@@ -13,53 +12,39 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // State
     let videoStarted = false;
-    let videoEnded = false;
+    let player;
     
     // Show video when button is clicked
     function showVideo() {
         invitationFullscreen.classList.add('hidden');
         videoSection.classList.remove('hidden');
-        
         videoStarted = true;
-        // NO mostrar navbar durante el video
-        
-        // Crear el player de YouTube directamente
         setupYouTubePlayer();
         
-        // Timeout principal para cuando termine el video (ajustar según duración real)
+        // Fallback timeout
         setTimeout(() => {
-            console.log("Video timeout reached, showing main content");
             showMainContent();
-        }, 45000); // 45 segundos - ajusta según la duración real de tu video
+        }, 45000);
     }
     
-    // Variable para el player
-    let player;
-    
-    // Configurar el player de YouTube
+    // Setup YouTube player
     function setupYouTubePlayer() {
-        // Cargar la API si no está cargada
         if (!window.YT) {
-            console.log("Loading YouTube API...");
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
             const firstScriptTag = document.getElementsByTagName('script')[0];
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             
-            // Configurar callback cuando la API esté lista
             window.onYouTubeIframeAPIReady = function() {
-                console.log("YouTube API ready!");
                 createPlayer();
             };
         } else {
-            console.log("YouTube API already loaded");
             createPlayer();
         }
     }
     
-    // Crear el player
+    // Create YouTube player
     function createPlayer() {
-        console.log("Creating YouTube player...");
         player = new YT.Player('invitation-video', {
             height: '100%',
             width: '100%',
@@ -74,41 +59,33 @@ document.addEventListener('DOMContentLoaded', function() {
                 'fs': 0
             },
             events: {
-                'onStateChange': onPlayerStateChange,
-                'onReady': function(event) {
-                    console.log("YouTube player is ready!");
+                'onStateChange': function(event) {
+                    if (event.data == YT.PlayerState.ENDED) {
+                        showMainContent();
+                    }
                 }
             }
         });
     }
     
-    // Detectar cuando termina el video
-    function onPlayerStateChange(event) {
-        console.log("YouTube player state changed:", event.data);
-        if (event.data == YT.PlayerState.ENDED) {
-            console.log("El vídeo ha terminado 🎉");
-            showMainContent();
-        }
-    }
-    
-    // Show main content and hide video
+    // Show main content
     function showMainContent() {
         videoSection.classList.add('hidden');
         backgroundImage.classList.remove('hidden');
         document.querySelector('.main-content').classList.add('visible');
         navbar.classList.add('visible');
         
-        // Iniciar música de fondo
+        // Start background music
         const backgroundMusic = document.getElementById('background-music');
         if (backgroundMusic) {
-            backgroundMusic.volume = 0.25; // Volumen bajo
+            backgroundMusic.volume = 0.25;
             backgroundMusic.play().catch(error => {
                 console.log('No se pudo reproducir la música automáticamente:', error);
             });
         }
     }
     
-    // Skip to main content directly
+    // Skip to main content
     function skipToContent() {
         invitationFullscreen.classList.add('hidden');
         videoStarted = true;
@@ -137,12 +114,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Smooth navigation
+    // Navigation links
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Cerrar menú móvil al hacer clic en un enlace
+            // Close mobile menu
             const navMenu = document.querySelector('.nav-menu');
             const navToggle = document.querySelector('.nav-toggle');
             if (navMenu && navToggle) {
@@ -166,19 +143,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Show navbar on scroll
+    // Update active navigation on scroll
     window.addEventListener('scroll', function() {
-        // Solo mostrar navbar si el contenido principal está visible
         const mainContent = document.querySelector('.main-content');
         if (mainContent.classList.contains('visible')) {
             navbar.classList.add('visible');
+            updateActiveNavigation();
         }
-        
-        // Update active navigation
-        updateActiveNavigation();
-        
-        // Simple scroll animations
-        animateOnScroll();
     });
     
     // Update active navigation
@@ -202,29 +173,13 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Simple scroll animations
-    function animateOnScroll() {
-        const animatedElements = document.querySelectorAll('.detail-card, .location-item');
-        
-        animatedElements.forEach(element => {
-            const elementTop = element.getBoundingClientRect().top;
-            const elementVisible = 150;
-            
-            if (elementTop < window.innerHeight - elementVisible) {
-                element.classList.add('animate-in');
-            }
-        });
-    }
-    
-    
-    
     // Logo click to scroll to top
     const logoLink = document.getElementById('logo-link');
     if (logoLink) {
         logoLink.addEventListener('click', function(e) {
             e.preventDefault();
             
-            // Cerrar menú móvil si está abierto
+            // Close mobile menu
             const navMenu = document.querySelector('.nav-menu');
             const navToggle = document.querySelector('.nav-toggle');
             if (navMenu && navToggle) {
@@ -250,11 +205,9 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    
     // Check initial state
     function checkInitialState() {
         if (window.location.hash || window.scrollY > 100) {
-            // Si hay un hash o scroll, saltar directamente al contenido
             skipToContent();
         }
     }
@@ -262,11 +215,4 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize
     checkInitialState();
     updateActiveNavigation();
-    animateOnScroll();
-    
-    setTimeout(() => {
-        document.body.classList.add('loaded');
-    }, 100);
 });
-
-
