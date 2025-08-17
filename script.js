@@ -212,6 +212,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Copy account number function
+    window.copyAccountNumber = function() {
+        const accountNumber = 'ES16 0237 0185 3091 7415 4973';
+        navigator.clipboard.writeText(accountNumber).then(() => {
+            // Silent copy - no visual feedback
+        }).catch(() => {
+            // Fallback for older browsers
+            const textArea = document.createElement('textarea');
+            textArea.value = accountNumber;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+        });
+    };
+
     // Initialize
     checkInitialState();
     updateActiveNavigation();

@@ -1072,6 +1072,28 @@ html {
     letter-spacing: 1px !important;
     max-width: 600px !important;
     word-break: break-all !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: var(--space-sm) !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.account-number:hover {
+    background: rgba(212, 175, 55, 0.2) !important;
+    border-color: var(--accent-color) !important;
+    transform: translateY(-1px) !important;
+}
+
+.account-number svg {
+    color: var(--accent-color) !important;
+    opacity: 0.7 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.account-number:hover svg {
+    opacity: 1 !important;
 }
 
 
