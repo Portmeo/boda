@@ -19,49 +19,88 @@ document.addEventListener('DOMContentLoaded', function() {
         invitationFullscreen.classList.add('hidden');
         videoSection.classList.remove('hidden');
         
-        // Set up YouTube iframe with autoplay and API
-        const youtubeUrl = `https://www.youtube.com/embed/${youtubeVideoId}?autoplay=1&mute=0&controls=1&rel=0&modestbranding=1&showinfo=0&fs=0&cc_load_policy=0&iv_load_policy=3&autohide=1&enablejsapi=1&origin=${window.location.origin}`;
-        video.src = youtubeUrl;
-        
         videoStarted = true;
         // NO mostrar navbar durante el video
         
-        // Escuchar eventos del video de YouTube
-        setupYouTubeListener();
+        // Crear el player de YouTube directamente
+        setupYouTubePlayer();
         
-        // Backup: si no detecta el fin del video, usar timeout
+        // Backup: si no funciona la API, usar timeout
         setTimeout(() => {
             showMainContent();
-        }, 120000); // 2 minutos como backup
+        }, 90000); // 1.5 minutos como backup
     }
     
-    // Configurar listener para eventos de YouTube
-    function setupYouTubeListener() {
-        window.addEventListener('message', function(event) {
-            if (event.origin !== 'https://www.youtube.com') return;
+    // Variable para el player
+    let player;
+    
+    // Configurar el player de YouTube
+    function setupYouTubePlayer() {
+        // Cargar la API si no está cargada
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             
-            try {
-                const data = JSON.parse(event.data);
-                // Cuando el video termina (estado 0)
-                if (data.event === 'video-data-change' && data.info && data.info.playerState === 0) {
-                    showMainContent();
-                }
-                // También escuchar directamente el evento de fin
-                if (data.event === 'onStateChange' && data.info === 0) {
-                    showMainContent();
-                }
-            } catch (e) {
-                // Ignorar mensajes que no son JSON válido
+            // Configurar callback cuando la API esté lista
+            window.onYouTubeIframeAPIReady = function() {
+                createPlayer();
+            };
+        } else {
+            createPlayer();
+        }
+    }
+    
+    // Crear el player
+    function createPlayer() {
+        player = new YT.Player('invitation-video', {
+            height: '100%',
+            width: '100%',
+            videoId: youtubeVideoId,
+            playerVars: {
+                'autoplay': 1,
+                'mute': 0,
+                'controls': 1,
+                'rel': 0,
+                'modestbranding': 1,
+                'showinfo': 0,
+                'fs': 0
+            },
+            events: {
+                'onStateChange': onPlayerStateChange
             }
         });
     }
     
-    // Show main content and hide video
+    // Detectar cuando termina el video
+    function onPlayerStateChange(event) {
+        if (event.data == YT.PlayerState.ENDED) {
+            console.log("El vídeo ha terminado 🎉");
+            showMainContent();
+        }
+    }
+    
+    // Show main content and hide video with smooth transition
     function showMainContent() {
-        videoSection.classList.add('hidden');
-        backgroundImage.classList.remove('hidden');
-        navbar.classList.add('visible');
-        document.querySelector('.main-content').classList.add('visible');
+        // Fade out video first
+        videoSection.style.opacity = '0';
+        
+        setTimeout(() => {
+            videoSection.classList.add('hidden');
+            videoSection.style.opacity = '1'; // Reset for next time
+            
+            // Show background image and content
+            backgroundImage.classList.remove('hidden');
+            document.querySelector('.main-content').classList.add('visible');
+            navbar.classList.add('visible');
+            
+            // Fade in background image
+            setTimeout(() => {
+                backgroundImage.style.opacity = '1';
+            }, 50);
+            
+        }, 600); // Wait for fade out to complete
     }
     
     // Skip to main content directly
