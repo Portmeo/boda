@@ -1089,6 +1089,7 @@ html {
     margin-bottom: var(--space-2xl);
     position: relative;
     white-space: nowrap;
+    text-align: center;
 }
 
 .main-heading::after {
@@ -1569,7 +1570,7 @@ html {
     color: var(--text-secondary);
     line-height: 1.8;
     margin: var(--space-lg) 0;
-    text-align: left;
+    text-align: center;
 }
 
 .google-form-link {
