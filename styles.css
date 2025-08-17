@@ -49,6 +49,7 @@ body {
     background: var(--background-primary);
     overflow-x: hidden;
     font-weight: 400;
+    text-wrap: pretty;
 }
 
 /* Comportamiento normal de scroll */
@@ -1540,10 +1541,13 @@ html {
 
 /* RSVP Section */
 .rsvp-section {
-    padding: var(--space-4xl) 0;
+    padding: var(--space-4xl) 0 var(--space-4xl) 0;
     background: var(--background-secondary);
     position: relative;
     z-index: 1002;
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
 }
 
 .rsvp-content {
@@ -1552,7 +1556,7 @@ html {
 }
 
 .rsvp-text {
-    text-align: center;
+    text-align: left;
     margin-bottom: var(--space-3xl);
 }
 
@@ -1570,7 +1574,17 @@ html {
     color: var(--text-secondary);
     line-height: 1.8;
     margin: var(--space-lg) 0;
-    text-align: center;
+    text-align: left;
+}
+
+.rsvp-text {
+    text-align: left;
+}
+
+.rsvp-text .google-form-link {
+    display: block;
+    margin: var(--space-lg) auto 0 auto;
+    width: fit-content;
 }
 
 .google-form-link {
@@ -1585,6 +1599,7 @@ html {
     font-size: 1.1rem;
     transition: all 0.3s ease;
     margin-top: var(--space-lg);
+    text-align: center;
 }
 
 .google-form-link:hover {
