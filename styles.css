@@ -1240,6 +1240,8 @@ html {
 .event-info {
     padding: var(--space-xl) 0;
     border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    max-width: 100%;
+    overflow-wrap: break-word;
 }
 
 .event-info:last-child {
@@ -1270,11 +1272,14 @@ html {
 
 .ceremony-image {
     width: 100%;
-    max-width: 450px;
+    max-width: 550px;
+    height: 350px;
     object-fit: cover;
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-soft);
     transition: transform 0.3s ease;
+    margin: 0 auto;
+    display: block;
 }
 
 .ceremony-image:hover {
@@ -1287,6 +1292,9 @@ html {
     margin: var(--space-md) 0;
     line-height: 1.7;
     text-align: left;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .event-detail {
@@ -1294,6 +1302,10 @@ html {
     color: var(--text-secondary);
     margin: var(--space-sm) 0;
     line-height: 1.6;
+    max-width: 550px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .event-time {
@@ -1389,10 +1401,12 @@ html {
     background: rgba(212, 175, 55, 0.1) !important;
     padding: var(--space-sm) var(--space-md) !important;
     border-radius: var(--radius-sm) !important;
-    margin: var(--space-md) 0 !important;
+    margin: var(--space-md) auto !important;
     text-align: center !important;
     border: 1px solid rgba(212, 175, 55, 0.3) !important;
     letter-spacing: 1px !important;
+    max-width: 550px !important;
+    word-break: break-all !important;
 }
 
 
@@ -1706,6 +1720,11 @@ html {
 
     .event-image {
         padding: 0 var(--space-md) !important;
+    }
+    
+    .ceremony-image {
+        height: 200px !important;
+        max-width: 100% !important;
     }
     
     .nav-menu {
