@@ -1,183 +1,203 @@
 # 💒 Landing Page de Boda - Javier & Mari Ángeles
 
-Landing page minimalista y elegante para boda con animaciones CSS avanzadas, video de invitación interactivo que se oculta con scroll, y formulario de confirmación completo.
+Landing page minimalista y elegante para boda con video de YouTube integrado, navegación suave, iconografía SVG profesional y formulario de confirmación con Google Forms.
 
 ## 🎨 Diseño Minimalista Elegante
 
-- **Paleta**: Grises elegantes, dorado sutil
-- **Tipografía**: Cormorant Garamond + Inter
+- **Paleta**: Grises elegantes (#2C2C2C), dorado sutil (#D4AF37), blanco limpio
+- **Tipografía**: Cormorant Garamond (títulos) + Inter (texto)
 - **Características**:
-  - Video con botón de play y audio
-  - Animación de sobre que se abre
+  - Video de YouTube con reproducción automática
+  - Iconografía SVG profesional en color dorado
   - Diseño limpio y moderno
-  - Navegación suave y discreta
-  - Círculo de fecha interactivo
-  - Timeline de historia vertical
-  - Formulario RSVP completo
+  - Navegación suave con anchors
+  - Imagen de fondo estática en blanco y negro
+  - Efectos de difuminado lateral
+  - Formulario RSVP integrado con Google Forms
 
 ## ✨ Características Principales
 
-### Animación de Video Scroll
-Inspirada en Rockstar Games VI, el video de invitación:
-- Se reproduce automáticamente al cargar
-- Se oculta gradualmente al hacer scroll
-- Transición suave con efectos CSS
-- Navbar aparece después del video
+### Video de YouTube Integrado
+- **Reproducción automática** al hacer clic en "Descúbrelo"
+- **API de YouTube Player** para control avanzado
+- **Transición suave** a contenido principal al finalizar
+- **Responsive** con aspect ratio 16:9
+- **Detección de finalización** automática
+
+### Iconografía SVG Profesional
+- **Anillos de boda** para la ceremonia
+- **Copas de champán** para la celebración  
+- **Caja de regalo** para la sección de regalos
+- **Color dorado** (#D4AF37) aplicado directamente en los SVG
+- **Tamaños optimizados** (32px para anillos y copas, 24px para regalos)
 
 ### Sistema de Variables CSS
-Cada diseño incluye variables personalizables:
 ```css
 :root {
-  --primary-color: #8B4F47;
-  --secondary-color: #D4AF37;
-  --font-heading: 'Playfair Display', serif;
-  /* ... más variables */
+  --primary-color: #2C2C2C;     /* Gris principal */
+  --accent-color: #D4AF37;      /* Dorado de acento */
+  --background-primary: #FFFFFF; /* Fondo principal */
+  --background-secondary: #FAFAFA; /* Fondo secundario */
+  --text-primary: #1A1A1A;     /* Texto principal */
+  --text-secondary: #666666;   /* Texto secundario */
+  --border-color: #E5E5E5;     /* Color de bordes */
 }
 ```
 
 ### Navegación Inteligente
-- Menú fijo que aparece tras el video
-- Indicadores activos según la sección
-- Scroll suave entre secciones
-- Responsive con hamburger menu
+- **Logo clickeable** que hace scroll al top
+- **Menú responsive** con hamburger en mobile
+- **Estados activos** según la sección visible
+- **Scroll suave** entre secciones con padding adaptativo
+- **Cierre automático** del menú mobile al navegar
 
-### Formularios RSVP Avanzados
-- Validación en tiempo real
-- Notificaciones personalizadas por tema
-- Efectos de envío animados
-- Campos para preferencias especiales
+### Imagen de Fondo Estática
+- **Blanco y negro** con filtro grayscale(100%)
+- **Difuminado lateral** para mejor integración
+- **Responsive**: imagen-mobile.png en dispositivos móviles
+- **Posicionada debajo del navbar** en todas las resoluciones
+- **object-fit: contain** para mostrar imagen completa
 
 ## 🚀 Instalación y Uso
 
 1. **Clonar o descargar** los archivos
-2. **Abrir cualquier archivo HTML** en un navegador
-3. **Personalizar variables CSS** para cambiar colores y tipografías
-4. **Tu video debe llamarse** `video.mp4` y estar en la raíz
+2. **Crear carpeta assets** y mover todos los archivos multimedia
+3. **Abrir index.html** en un navegador
+4. **Personalizar variables CSS** para cambiar colores y tipografías
 
 ### Estructura de Archivos
 ```
 boda/
 ├── index.html                    # Landing page principal
 ├── styles.css                   # Estilos minimalistas
-├── script.js                    # JavaScript interactivo
-├── imagen.png                   # Imagen estática del video (opcional)
-└── README.md                    # Documentación del proyecto
+├── script.js                    # JavaScript simplificado
+├── assets/                      # Carpeta de archivos multimedia
+│   ├── imagen.png              # Imagen estática desktop
+│   ├── imagen-mobile.png       # Imagen estática mobile
+│   ├── musica.mp3              # Audio de fondo
+│   ├── anillos.svg             # Icono anillos (ceremonia)
+│   ├── copas.svg               # Icono copas (celebración)
+│   ├── regalos.svg             # Icono regalos
+│   ├── iglesia.jpg             # Foto iglesia (600x450px)
+│   └── injupisa.jpg            # Foto sede celebración (600x450px)
+└── README.md                    # Documentación
 ```
 
-## 🎥 Video de Invitación
+## 🎥 Video de YouTube
 
-Ahora utiliza YouTube para el video de invitación:
-1. Sube tu video a YouTube (puede ser privado o no listado)
-2. Copia el ID del video desde la URL (ej: de `https://youtu.be/Yy6Wl7zHgWI` el ID es `Yy6Wl7zHgWI`)
-3. El video se reproduce automáticamente en pantalla completa
-4. Ventajas:
-   - **Sin límite de tamaño** de archivo
-   - **Carga más rápida** 
-   - **Funciona en cualquier dispositivo**
-   - **No ocupa espacio** en tu repositorio
+### Configuración del Video
+1. **ID del video**: Configurado en `script.js` (variable `youtubeVideoId`)
+2. **Reproducción automática** con audio habilitado
+3. **Detección de finalización** para transición automática
+4. **Sin sugerencias** de videos relacionados (minimizadas)
 
-### 📱 Responsive Video (16:9)
-El video se adapta automáticamente a cualquier pantalla manteniendo su proporción:
-- **Desktop**: Se centra y mantiene aspect ratio
-- **Móvil vertical**: Se ajusta al ancho de pantalla
-- **Móvil horizontal**: Se adapta sin cortarse
-- **Tablets**: Escalado proporcional perfecto
-- **Fondo negro** en los espacios vacíos para mantener la estética
+### Responsive Video
+- **Desktop**: Pantalla completa con controles
+- **Mobile**: Adaptación perfecta al viewport
+- **Aspect ratio preservado** en todas las resoluciones
 
 ## 🎨 Personalización de Colores
 
+### Paleta Principal
 ```css
 :root {
-    --primary-color: #2C2C2C;     /* Gris principal */
-    --accent-color: #D4AF37;      /* Dorado de acento */
-    --background-primary: #FFFFFF; /* Fondo principal */
-    --background-secondary: #FAFAFA; /* Fondo secundario */
+    --primary-color: #2C2C2C;     /* Títulos y elementos principales */
+    --accent-color: #D4AF37;      /* Dorado para iconos y acentos */
     --text-primary: #1A1A1A;     /* Texto principal */
-    --border-color: #E5E5E5;     /* Color de bordes */
+    --text-secondary: #666666;    /* Texto secundario */
+    --background-primary: #FFFFFF; /* Fondo principal */
+    --background-secondary: #FAFAFA; /* Fondo secciones alternas */
 }
 ```
 
 ## 📱 Responsive Design
 
-El diseño es completamente responsivo:
-- **Desktop**: Experiencia completa con animaciones
-- **Tablet**: Adaptación de layouts a columnas
-- **Mobile**: Navegación hamburger y layouts verticales
+### Desktop (>768px)
+- **Imágenes**: 600px ancho, 450px alto
+- **Navegación**: Horizontal con hover effects
+- **Imagen de fondo**: Difuminado lateral para mejor integración
+
+### Mobile (≤768px)
+- **Imágenes**: 100% ancho, 250px alto
+- **Navegación**: Hamburger menu
+- **Imagen de fondo**: imagen-mobile.png optimizada
+- **Padding reducido**: Mejor uso del espacio
+- **Centrado**: Botones y elementos principales
 
 ## 🌟 Características Técnicas
 
-### Animaciones CSS Puras
-- Transformaciones 3D para las tarjetas
-- Transiciones suaves en hover
-- Keyframes personalizados
-- Efectos de parallax sutiles
+### JavaScript Simplificado
+- **Sin frameworks** externos
+- **YouTube Player API** para control de video
+- **Navegación suave** nativa del navegador
+- **Audio de fondo** con volumen controlado (25%)
+- **Estados de scroll** para navegación activa
 
-### JavaScript Vanilla
-- Sin dependencias externas
-- Intersection Observer para animaciones
-- Smooth scrolling nativo
-- Event listeners optimizados
+### CSS Optimizado
+- **text-wrap: pretty** para mejor legibilidad
+- **scroll-behavior: smooth** para navegación fluida
+- **scroll-padding-top** adaptativo por sección
+- **Media queries** específicas para diferentes dispositivos
+- **Flexbox y Grid** para layouts responsivos
 
 ### Accesibilidad
-- Navegación por teclado
-- Contraste adecuado de colores
-- Alt texts para elementos decorativos
-- Formularios semánticamente correctos
+- **Navegación por teclado** funcional
+- **Alt texts** en todas las imágenes
+- **Contraste suficiente** en todos los textos
+- **Formularios semánticamente correctos**
 
 ## 🎯 Secciones Incluidas
 
-1. **Hero/Inicio**: Video + invitación principal
-2. **Historia**: Timeline de la relación
-3. **Ceremonia**: Detalles del evento religioso
-4. **Recepción**: Información de la fiesta
-5. **Hospedaje**: Hoteles recomendados (opcional)
-6. **Regalos**: Mesa de regalos
-7. **RSVP**: Formulario de confirmación
-8. **Galería**: Placeholder para fotos (romántico)
+1. **Pantalla de Bienvenida**: Video interactivo con botón de play
+2. **Inicio**: Presentación principal con fecha destacada
+3. **Detalles del Evento**: 
+   - Ceremonia (Iglesia Cristo Rey, 12:30h)
+   - Celebración (Sede Injupisa, Córdoba)
+   - Regalos (número de cuenta)
+4. **Confirmar Asistencia**: Enlace a Google Forms
 
-## 💡 Consejos de Implementación
+## 🔗 Integración con Google Forms
 
-### Para el Video
-- Usa un video corto y emotivo
-- Considera subtítulos o texto overlay
-- Optimiza el tamaño del archivo
-- Tiene un fallback para conexiones lentas
+### Formulario RSVP
+- **URL configurada** en el enlace "Confirmar Asistencia"
+- **Botón elegante** con hover effects
+- **Apertura en nueva pestaña** para mejor UX
+- **Texto informativo** sobre intolerancias y necesidades especiales
 
-### Para las Fuentes
-- Las fuentes de Google Fonts ya están incluidas
-- Considera cargar fuentes localmente para mejor rendimiento
-- Ajusta el tamaño de fuente según el contenido real
+### Características del Botón
+- **Estilo outline** con borde dorado
+- **Hover effect** que invierte colores
+- **Centrado automático** con texto alineado a la izquierda
+- **Responsive** en todas las resoluciones
 
-### Para las Animaciones
-- Prueba en diferentes dispositivos
-- Considera `prefers-reduced-motion` para accesibilidad
-- Las animaciones son suaves y no invasivas
+## 💡 Mejoras Implementadas
 
-## 🔧 Integración con Backend
+### Audio de Fondo
+- **Música ambiental** que se reproduce tras el video
+- **Volumen controlado** al 25% para no ser invasiva
+- **Activación automática** al mostrar contenido principal
 
-Los formularios están preparados para integración:
-```javascript
-// En script.js - función de envío
-const formData = new FormData(this);
-const data = Object.fromEntries(formData);
+### Navegación Optimizada
+- **Scroll padding** diferenciado por sección
+- **Anclas específicas** para mejor posicionamiento
+- **Logo funcional** que vuelve al inicio
+- **Cierre automático** del menú mobile
 
-// Aquí puedes enviar a tu backend
-fetch('/api/rsvp', {
-    method: 'POST',
-    body: formData
-})
-```
+### Tipografía Mejorada
+- **text-wrap: pretty** para distribución equilibrada
+- **font-smoothing** para mejor renderizado
+- **Jerarquía consistente** entre todas las secciones
 
-## 📧 Soporte
+## 🎨 Organización de Assets
 
-Esta es una landing page estática lista para usar. Para funcionalidades adicionales como:
-- Base de datos de invitados
-- Envío de emails automatizados
-- Galería de fotos dinámica
-- Gestión de listas de regalo
-
-Necesitarás integrar con un backend (Node.js, PHP, etc.)
+Todos los archivos multimedia están organizados en la carpeta `assets/`:
+- **Imágenes**: .png, .jpg
+- **Iconos**: .svg con color aplicado
+- **Audio**: .mp3 optimizado
+- **Referencias actualizadas** en HTML y CSS
 
 ---
 
 💕 **¡Felicidades por su boda!** 💕
+
+*Landing page desarrollada con tecnologías web modernas y optimizada para la mejor experiencia del usuario en la celebración de Javier & Mari Ángeles - 25 de Octubre, 2025*
