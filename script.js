@@ -151,24 +151,16 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
+            const targetElement = document.getElementById(targetId);
             
-            if (targetSection) {
+            if (targetElement) {
                 if (!videoStarted) {
                     skipToContent();
                     setTimeout(() => {
-                        const offsetTop = targetSection.offsetTop + window.innerHeight - 80;
-                        window.scrollTo({
-                            top: offsetTop,
-                            behavior: 'smooth'
-                        });
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
                     }, 300);
                 } else {
-                    const offsetTop = targetSection.offsetTop + window.innerHeight - 80;
-                    window.scrollTo({
-                        top: offsetTop,
-                        behavior: 'smooth'
-                    });
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
                 }
             }
         });
@@ -224,75 +216,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // RSVP form handling
-    const rsvpForm = document.querySelector('.rsvp-form');
-    if (rsvpForm) {
-        rsvpForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
-            
-            if (!data.name || !data.email || !data.attendance) {
-                showNotification('Por favor, completa todos los campos requeridos.', 'error');
-                return;
-            }
-            
-            showNotification('¡Perfecto! Tu confirmación ha sido enviada. Nos vemos pronto.', 'success');
-            this.reset();
-        });
-    }
     
-    // Simple notification system
-    function showNotification(message, type = 'success') {
-        const existing = document.querySelector('.notification');
-        if (existing) {
-            existing.remove();
-        }
-        
-        const notification = document.createElement('div');
-        notification.className = `notification notification-${type}`;
-        notification.innerHTML = `
-            <div class="notification-content">
-                <span class="notification-icon">${type === 'success' ? '✓' : '⚠'}</span>
-                <span class="notification-text">${message}</span>
-            </div>
-        `;
-        
-        notification.style.cssText = `
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: ${type === 'success' ? '#2C2C2C' : '#E74C3C'};
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
-            z-index: 10000;
-            opacity: 0;
-            transform: translateX(100%) scale(0.9);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            font-family: var(--font-body);
-            max-width: 350px;
-        `;
-        
-        document.body.appendChild(notification);
-        
-        requestAnimationFrame(() => {
-            notification.style.opacity = '1';
-            notification.style.transform = 'translateX(0) scale(1)';
-        });
-        
-        setTimeout(() => {
-            notification.style.opacity = '0';
-            notification.style.transform = 'translateX(100%) scale(0.9)';
-            setTimeout(() => {
-                if (notification.parentNode) {
-                    notification.parentNode.removeChild(notification);
-                }
-            }, 400);
-        }, 4000);
-    }
     
     // Mobile menu toggle
     const navToggle = document.querySelector('.nav-toggle');
@@ -305,13 +229,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Location buttons
-    const locationBtns = document.querySelectorAll('.location-btn');
-    locationBtns.forEach(btn => {
-        btn.addEventListener('click', function() {
-            showNotification('Abriendo ubicación en Maps...', 'success');
-        });
-    });
     
     // Check initial state
     function checkInitialState() {
@@ -332,73 +249,3 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-// Mobile menu styles
-const notificationStyles = document.createElement('style');
-notificationStyles.textContent = `
-    .notification-content {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-    
-    .notification-icon {
-        font-weight: bold;
-        font-size: 1.1rem;
-    }
-    
-    .notification-text {
-        font-size: 0.9rem;
-        line-height: 1.4;
-    }
-    
-    @media (max-width: 768px) {
-        .notification {
-            right: 10px !important;
-            left: 10px !important;
-            top: 10px !important;
-            max-width: none !important;
-        }
-    }
-    
-    .nav-toggle.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 5px);
-    }
-    
-    .nav-toggle.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .nav-toggle.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(7px, -6px);
-    }
-    
-    @media (max-width: 768px) {
-        .nav-menu.active {
-            display: flex;
-            position: absolute;
-            top: 100%;
-            left: 0;
-            width: 100%;
-            background: rgba(255,255,255,0.98);
-            backdrop-filter: blur(20px);
-            flex-direction: column;
-            padding: 2rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-            border-top: 1px solid var(--border-color);
-        }
-        
-        .nav-menu.active a {
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-color);
-            position: relative;
-        }
-        
-        .nav-menu.active a::after {
-            bottom: 0;
-            height: 2px;
-            background: var(--accent-color);
-            z-index: 1;
-        }
-    }
-`;
-document.head.appendChild(notificationStyles);
