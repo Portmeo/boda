@@ -396,24 +396,7 @@ html {
     }
 }
 
-.mysterious-text {
-    font-family: var(--font-heading);
-    font-size: 1.3rem;
-    color: var(--accent-color);
-    text-align: center;
-    margin: var(--space-lg) 0;
-    font-weight: 400;
-    font-style: italic;
-    letter-spacing: 0.5px;
-}
 
-.invitation-text {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    margin: var(--space-xl) 0;
-    line-height: 1.7;
-    text-align: center;
-}
 
 .date-section {
     margin: var(--space-2xl) 0;
@@ -537,23 +520,6 @@ html {
     font-size: 1rem;
 }
 
-.skip-video-btn {
-    background: transparent;
-    color: var(--text-secondary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-md);
-    padding: var(--space-md) var(--space-lg);
-    font-family: var(--font-body);
-    font-weight: 400;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.skip-video-btn:hover {
-    background: var(--background-secondary);
-    color: var(--text-primary);
-    border-color: var(--text-secondary);
-}
 
 /* Video Hero Section (oculto por defecto) */
 .video-progress-indicator {
@@ -598,7 +564,7 @@ html {
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
 }
 
-.video-hero {
+.video-section {
     position: fixed;
     top: 0;
     left: 0;
@@ -612,13 +578,13 @@ html {
     justify-content: center;
 }
 
-.video-hero.hidden {
+.video-section.hidden {
     opacity: 0;
     transform: scale(1.1);
     pointer-events: none;
 }
 
-.video-hero.fade-out {
+.video-section.fade-out {
     opacity: 0;
     transform: scale(1.1);
     pointer-events: none;
@@ -651,7 +617,7 @@ html {
         height: 100vh;
     }
     
-    .video-hero {
+    .video-section {
         align-items: center;
         justify-content: center;
     }
@@ -665,7 +631,7 @@ html {
 }
 
 /* Fallback para navegadores que no soporten aspect-ratio */
-.video-hero::before {
+.video-section::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -678,8 +644,8 @@ html {
     pointer-events: none;
 }
 
-/* Imagen estática hero */
-.static-image-hero {
+/* Imagen de fondo estática */
+.background-image {
     position: fixed;
     top: 0;
     left: 0;
@@ -693,13 +659,13 @@ html {
     justify-content: center;
 }
 
-.static-image-hero.hidden {
+.background-image.hidden {
     opacity: 0;
     transform: scale(1.1);
     pointer-events: none;
 }
 
-.static-image-hero.fade-out {
+.background-image.fade-out {
     opacity: 0;
     transform: scale(1.1);
     pointer-events: none;
@@ -707,13 +673,9 @@ html {
 
 #static-invitation-image {
     width: 100%;
-    height: 120%; /* Ligeramente más grande para el efecto parallax */
-    max-width: 100%;
-    max-height: 120%;
-    object-fit: cover; /* Cambiar a cover para mejor efecto parallax */
+    height: 100%;
+    object-fit: cover;
     filter: brightness(0.7);
-    transition: transform 0.1s ease-out;
-    transform-origin: center center;
 }
 
 .scroll-hint-over-image {
@@ -788,7 +750,7 @@ html {
 /* Responsive para pantalla completa de invitación */
 @media (max-width: 768px) {
     .fullscreen-content {
-        padding: var(--space-xl);
+        padding: var(--space-md);
         max-width: 95%;
     }
     
@@ -892,12 +854,8 @@ html {
         font-size: 2.5rem;
     }
     
-    .mysterious-text {
-        font-size: 1.1rem;
-    }
     
-    .play-video-btn,
-    .skip-video-btn {
+    .play-video-btn {
         font-size: 0.9rem;
     }
     
@@ -936,16 +894,10 @@ html {
     
     .welcome-text {
         font-size: 1rem;
-        padding: 0 var(--space-md);
-    }
-    
-    .welcome-message {
-        padding: var(--space-lg);
     }
     
     /* Responsive para nueva sección de detalles */
     .details-message {
-        padding: var(--space-lg);
         max-width: 95%;
     }
     
@@ -963,13 +915,11 @@ html {
     }
     
     .gift-info {
-        padding: var(--space-lg);
         margin-top: var(--space-2xl);
     }
     
     .gift-text {
         font-size: 0.95rem;
-        padding: 0 var(--space-sm);
     }
     
 }
@@ -983,7 +933,7 @@ html {
     background: rgba(255,255,255,0.95);
     backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--border-color);
-    z-index: 1000;
+    z-index: 1002;
     transform: translateY(-100%);
     transition: transform 0.3s ease;
 }
@@ -1066,12 +1016,17 @@ html {
     z-index: 1001;
     background: var(--background-primary);
     margin-top: 100vh;
+    display: none;
+    padding: 0 var(--space-xl);
+}
+
+.main-content.visible {
+    display: block;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--space-xl);
 }
 
 /* Intro Section Mejorada */
@@ -1113,16 +1068,6 @@ html {
     animation: fadeInUp 1s ease-out;
 }
 
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(40px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
 
 .main-heading {
     font-family: var(--font-heading);
@@ -1191,7 +1136,7 @@ html {
     color: var(--text-secondary);
     line-height: 1.8;
     margin: var(--space-2xl) 0;
-    text-align: center;
+    text-align: left;
 }
 
 .scroll-hint {
@@ -1306,6 +1251,13 @@ html {
     letter-spacing: 1px;
 }
 
+.event-description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: var(--space-md) 0;
+    line-height: 1.7;
+}
+
 .event-detail {
     font-size: 1.1rem;
     color: var(--text-secondary);
@@ -1335,9 +1287,6 @@ html {
     margin-bottom: var(--space-lg);
 }
 
-.account-container {
-    margin-top: var(--space-lg);
-}
 
 .details-grid {
     display: grid;
@@ -1415,25 +1364,6 @@ html {
     letter-spacing: 1px !important;
 }
 
-.copy-account-btn {
-    background: var(--accent-color);
-    color: var(--text-light);
-    border: none;
-    padding: var(--space-sm) var(--space-md);
-    border-radius: var(--radius-sm);
-    font-size: 0.85rem;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-top: var(--space-sm);
-    width: 100%;
-}
-
-.copy-account-btn:hover {
-    background: #B8860B;
-    transform: translateY(-1px);
-    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
-}
 
 /* Story Section */
 .story-section {
@@ -1680,6 +1610,53 @@ html {
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    /* Reducir padding en mobile */
+    .main-content {
+        padding: 0 var(--space-md);
+    }
+    
+    .intro-section,
+    .details-section,
+    .location-section,
+    .rsvp-section {
+        padding: var(--space-xl) 0;
+    }
+    
+    /* Eliminar todos los paddings internos en mobile - solo usar el del main-content */
+    .welcome-message,
+    .details-message,
+    .intro-content,
+    .location-content,
+    .rsvp-content,
+    .welcome-text,
+    .gift-info {
+        padding: 0;
+    }
+    
+    /* Mejorar legibilidad de texto en mobile */
+    .welcome-text,
+    .gift-text,
+    .event-description,
+    .rsvp-text {
+        text-align: left;
+    }
+    
+    /* Simplificar número de cuenta en mobile */
+    .account-number {
+        background: none !important;
+        border: none !important;
+        padding: 0 !important;
+        border-radius: 0 !important;
+        font-size: 1rem !important;
+        text-align: center !important;
+        margin: var(--space-md) 0 !important;
+    }
+    
+    /* Centrar nombre de sede en mobile */
+    .event-detail {
+        text-align: center !important;
+    }
+    
     .nav-menu {
         display: none;
     }
@@ -1728,7 +1705,4 @@ html {
         grid-template-columns: 1fr;
     }
     
-    .container {
-        padding: 0 var(--space-lg);
-    }
 }
