@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // State
     let videoStarted = false;
+    let videoEnded = false;
     
     // Show video when button is clicked
     function showVideo() {
@@ -25,10 +26,11 @@ document.addEventListener('DOMContentLoaded', function() {
         // Crear el player de YouTube directamente
         setupYouTubePlayer();
         
-        // Backup: si no funciona la API, usar timeout
+        // Timeout principal para cuando termine el video (ajustar según duración real)
         setTimeout(() => {
+            console.log("Video timeout reached, showing main content");
             showMainContent();
-        }, 90000); // 1.5 minutos como backup
+        }, 45000); // 45 segundos - ajusta según la duración real de tu video
     }
     
     // Variable para el player
@@ -38,6 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function setupYouTubePlayer() {
         // Cargar la API si no está cargada
         if (!window.YT) {
+            console.log("Loading YouTube API...");
             const tag = document.createElement('script');
             tag.src = "https://www.youtube.com/iframe_api";
             const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -45,15 +48,18 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Configurar callback cuando la API esté lista
             window.onYouTubeIframeAPIReady = function() {
+                console.log("YouTube API ready!");
                 createPlayer();
             };
         } else {
+            console.log("YouTube API already loaded");
             createPlayer();
         }
     }
     
     // Crear el player
     function createPlayer() {
+        console.log("Creating YouTube player...");
         player = new YT.Player('invitation-video', {
             height: '100%',
             width: '100%',
@@ -68,39 +74,38 @@ document.addEventListener('DOMContentLoaded', function() {
                 'fs': 0
             },
             events: {
-                'onStateChange': onPlayerStateChange
+                'onStateChange': onPlayerStateChange,
+                'onReady': function(event) {
+                    console.log("YouTube player is ready!");
+                }
             }
         });
     }
     
     // Detectar cuando termina el video
     function onPlayerStateChange(event) {
+        console.log("YouTube player state changed:", event.data);
         if (event.data == YT.PlayerState.ENDED) {
             console.log("El vídeo ha terminado 🎉");
             showMainContent();
         }
     }
     
-    // Show main content and hide video with smooth transition
+    // Show main content and hide video
     function showMainContent() {
-        // Fade out video first
-        videoSection.style.opacity = '0';
+        videoSection.classList.add('hidden');
+        backgroundImage.classList.remove('hidden');
+        document.querySelector('.main-content').classList.add('visible');
+        navbar.classList.add('visible');
         
-        setTimeout(() => {
-            videoSection.classList.add('hidden');
-            videoSection.style.opacity = '1'; // Reset for next time
-            
-            // Show background image and content
-            backgroundImage.classList.remove('hidden');
-            document.querySelector('.main-content').classList.add('visible');
-            navbar.classList.add('visible');
-            
-            // Fade in background image
-            setTimeout(() => {
-                backgroundImage.style.opacity = '1';
-            }, 50);
-            
-        }, 600); // Wait for fade out to complete
+        // Iniciar música de fondo
+        const backgroundMusic = document.getElementById('background-music');
+        if (backgroundMusic) {
+            backgroundMusic.volume = 0.25; // Volumen bajo
+            backgroundMusic.play().catch(error => {
+                console.log('No se pudo reproducir la música automáticamente:', error);
+            });
+        }
     }
     
     // Skip to main content directly
@@ -136,6 +141,14 @@ document.addEventListener('DOMContentLoaded', function() {
     navLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
+            
+            // Cerrar menú móvil al hacer clic en un enlace
+            const navMenu = document.querySelector('.nav-menu');
+            const navToggle = document.querySelector('.nav-toggle');
+            if (navMenu && navToggle) {
+                navMenu.classList.remove('active');
+                navToggle.classList.remove('active');
+            }
             
             const targetId = this.getAttribute('href').substring(1);
             const targetSection = document.getElementById(targetId);

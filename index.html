@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Javier & Maria Angeles - Nuestra Boda</title>
+    <title>Javier & Mari Ángeles</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <nav id="navbar">
         <div class="nav-container">
-            <div class="nav-logo">J&M</div>
+            <div class="nav-logo">J<span style="color: var(--accent-color)">&</span>M</div>
             <ul class="nav-menu">
                 <li><a href="#inicio">Inicio</a></li>
                 <li><a href="#detalles">Detalles</a></li>
@@ -28,12 +28,12 @@
     <div class="invitation-fullscreen" id="invitation-fullscreen">
         <div class="fullscreen-content">
             <div class="names-section">
-                <h1 class="couple-names-hero">Javier <span>&</span> Maria Angeles</h1>
+                <h1 class="couple-names-hero">Javier <span style="color: var(--accent-color)">&</span> Mari Ángeles</h1>
                 <div class="decorative-line"></div>
             </div>
             
             <div class="mystery-section">
-                <p class="simple-message">Queremos decirte algo...</p>
+                <p class="simple-message">Queremos contarte algo...</p>
                 
                 <button class="minimal-btn" id="play-video-btn">
                     Descúbrelo
@@ -62,12 +62,17 @@
         </div>
     </div>
 
+    <!-- Audio de fondo -->
+    <audio id="background-music" loop preload="auto">
+        <source src="musica.mp3" type="audio/mpeg">
+    </audio>
+
     <main class="main-content">
         <section id="inicio" class="intro-section">
             <div class="container">
                 <div class="intro-content">
                     <div class="welcome-message">
-                        <h1 class="main-heading">Javier & Maria Angeles</h1>
+                        <h1 class="main-heading">Javier <span style="color: var(--accent-color)">&</span> Mari Ángeles</h1>
                         <div class="wedding-date-elegant">
                             <span class="date-number">25</span>
                             <div class="date-details">
@@ -88,24 +93,29 @@
             <div class="container">
                 <div class="details-content">
                     <div class="details-message">
-                        <h2 class="main-heading">Detalles del Evento</h2>
+                        <h2 id="ceremonia" class="main-heading">Detalles del Evento</h2>
                         
                         <div class="event-info">
-                            <h3 class="event-title">💍 Ceremonia</h3>
+                            <h3 class="event-title"><img src="anillos.svg" alt="Anillos" width="32" height="32"> Ceremonia</h3>
+                            <div class="event-image">
+                                <img src="iglesia.jpg" alt="Iglesia de Cristo Rey" class="ceremony-image">
+                            </div>
                             <p class="event-description">La ceremonia tendrá lugar en la Iglesia de Cristo Rey, donde intercambiaremos nuestros votos ante Dios, familia y amigos más queridos.</p>
-                            <p class="event-detail">Iglesia de Cristo Rey de Córdoba</p>
                             <p class="event-time">12:30 hrs</p>
                         </div>
                         
                         <div class="event-info">
-                            <h3 class="event-title">🥂 Celebración</h3>
+                            <h3 class="event-title"><img src="copas.svg" alt="Copas" width="32" height="32"> Celebración</h3>
+                            <div class="event-image">
+                                <img src="injupisa.jpg" alt="Sede de Injupisa" class="ceremony-image">
+                            </div>
                             <p class="event-description">Después de la ceremonia, os invitamos a celebrar con nosotros en un banquete lleno de alegría, música y momentos inolvidables que compartiremos juntos.</p>
                             <p class="event-detail">Sede de Injupisa</p>
                             <p class="event-detail">Avd. del Brillante, 52, Córdoba</p>
                         </div>                        
                         
                         <div class="event-info">
-                            <h3 class="event-title">🎁 Regalos</h3>
+                            <h3 class="event-title"><img src="regalos.svg" alt="Regalos" width="24" height="24"> Regalos</h3>
                             <p class="event-description">Lo importante es veros en nuestro día especial, pero si deseas tener un detalle puedes 
      hacerlo en la cuenta:</p>
                             <p class="account-number">ES16 0237 0185 3091 7415 4973</p>
@@ -169,7 +179,7 @@
 
     <footer class="footer">
         <div class="container">
-            <p>Javier & Maria Angeles &mdash; 25 de Octubre, 2025</p>
+            <p>Javier <span style="color: var(--accent-color)">&</span> Mari Ángeles &mdash; 25 de Octubre, 2025</p>
         </div>
     </footer>
 

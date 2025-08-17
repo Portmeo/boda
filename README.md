@@ -1,4 +1,4 @@
-# 💒 Landing Page de Boda - Javier & Maria Angeles
+# 💒 Landing Page de Boda - Javier & Mari Ángeles
 
 Landing page minimalista y elegante para boda con animaciones CSS avanzadas, video de invitación interactivo que se oculta con scroll, y formulario de confirmación completo.
 
