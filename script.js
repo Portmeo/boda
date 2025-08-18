@@ -20,11 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
     videoSection.classList.remove("hidden");
     videoStarted = true;
     setupYouTubePlayer();
-
-    // Fallback timeout
-    setTimeout(() => {
-      showMainContent();
-    }, 45000);
   }
 
   // Setup YouTube player
