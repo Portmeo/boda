@@ -43,15 +43,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Create YouTube player
-  function createPlayer() {
+  let contentShown = false;
+
+function createPlayer() {
     player = new YT.Player("invitation-video", {
       height: "100%",
       width: "100%",
       videoId: youtubeVideoId,
       playerVars: {
         autoplay: 1,
-        mute: 0,
+        mute: 1,
         controls: 1,
         rel: 0,
         modestbranding: 1,
@@ -60,13 +61,24 @@ document.addEventListener("DOMContentLoaded", function () {
       },
       events: {
         onStateChange: function (event) {
-          if (event.data == YT.PlayerState.ENDED) {
-            showMainContent();
+          if (event.data == YT.PlayerState.PLAYING && !contentShown) {
+            // Timer fijo de 2 minutos - garantizado
+            setTimeout(() => {
+              if (!contentShown) {
+                contentShown = true;
+                showMainContent();
+              }
+            }, 120000); // 2 minutos exactos
           }
-        },
+          
+          // Ignorar ENDED hasta que pasen los 2 minutos
+          if (event.data == YT.PlayerState.ENDED && !contentShown) {
+            // No hacer nada
+          }
+        }
       },
     });
-  }
+}
 
   // Show main content
   function showMainContent() {
