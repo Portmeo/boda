@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   let contentShown = false;
 
-function createPlayer() {
+  function createPlayer() {
     player = new YT.Player("invitation-video", {
       height: "100%",
       width: "100%",
@@ -63,17 +63,20 @@ function createPlayer() {
                 contentShown = true;
                 showMainContent();
               }
-            }, 120000); // 2 minutos exactos
+            }, 150000); // 2 minutos exactos
           }
-          
+
           // Ignorar ENDED hasta que pasen los 2 minutos
           if (event.data == YT.PlayerState.ENDED && !contentShown) {
-            // No hacer nada
+            if (!contentShown) {
+              contentShown = true;
+              showMainContent();
+            }
           }
-        }
+        },
       },
     });
-}
+  }
 
   // Show main content
   function showMainContent() {
